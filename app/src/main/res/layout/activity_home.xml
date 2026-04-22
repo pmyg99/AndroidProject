@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="宠物寄养管理系统"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="48dp" />
+
+    <Button
+        android:id="@+id/btn_boarding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="入托登记"
+        android:textSize="20sp"
+        android:layout_marginBottom="24dp" />
+
+    <Button
+        android:id="@+id/btn_daily_care"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="日常看护"
+        android:textSize="20sp"
+        android:layout_marginBottom="24dp" />
+
+    <Button
+        android:id="@+id/btn_checkout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="出托核对"
+        android:textSize="20sp"
+        android:layout_marginBottom="24dp" />
+
+    <Button
+        android:id="@+id/btn_record"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="档案管理"
+        android:textSize="20sp" />
+
+</LinearLayout>

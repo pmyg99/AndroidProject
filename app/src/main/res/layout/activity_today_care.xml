@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="返回" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp" />
+
+        <!-- 饮食部分 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="饮水饮食"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:id="@+id/et_food_brand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="粮食品牌"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:id="@+id/et_meal_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="每餐分量（如150g）"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:id="@+id/et_water_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="饮水量（如500ml）"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:id="@+id/et_water_change_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="换水喂食时间（如09:00）"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:id="@+id/et_remarks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="注意事项/备注"
+            android:layout_marginTop="8dp" />
+
+        <!-- 用药部分 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="用药情况"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp" />
+
+        <EditText
+            android:id="@+id/et_medication_used"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="药物名称"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:id="@+id/et_medication_dose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="剂量"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:id="@+id/et_medication_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="用药时间"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:id="@+id/et_medication_method"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="用药方法"
+            android:layout_marginTop="8dp" />
+
+        <!-- 外出遛放 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="外出遛放"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp" />
+
+        <EditText
+            android:id="@+id/et_walk_time1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="第一次遛放时间（如08:00）"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:id="@+id/et_walk_time2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="第二次遛放时间（如18:00）"
+            android:layout_marginTop="8dp" />
+
+        <!-- 排泄状况 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="排泄状况"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="排尿状况" />
+        <Spinner
+            android:id="@+id/sp_pee_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="排便状况" />
+        <Spinner
+            android:id="@+id/sp_poop_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- 精神与外观 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="精神状态"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp" />
+        <Spinner
+            android:id="@+id/sp_spirit_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="外观检查" />
+        <Spinner
+            android:id="@+id/sp_appearance_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="保存"
+            android:layout_marginTop="24dp" />
+
+    </LinearLayout>
+</ScrollView>
