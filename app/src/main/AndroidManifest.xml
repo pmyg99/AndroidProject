@@ -40,7 +40,7 @@
         <activity android:name=".TodayCareActivity" />
         <activity android:name=".BoardingRecordDetailActivity" />
         <activity android:name=".PetBoardingRecordsActivity" />
-
+        <activity android:name=".ConfirmAppointmentActivity" />
     </application>
 
 </manifest>

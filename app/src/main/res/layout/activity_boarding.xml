@@ -45,10 +45,13 @@
 
     </RadioGroup>
 
+    <!-- 现场入托表单布局（原内容） -->
     <ScrollView
+        android:id="@+id/sv_walk_in"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -75,9 +78,9 @@
                 android:id="@+id/et_pet_species"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="品种（例如：边境牧羊犬）"
-                android:completionThreshold="1"
-                android:layout_marginTop="8dp" />
+                android:layout_weight="1"
+                android:hint="品种"
+                android:completionThreshold="1" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -176,38 +179,41 @@
                 android:inputType="phone"
                 android:layout_marginTop="8dp" />
 
-            <!-- 预约时间控件（初始隐藏） -->
-            <LinearLayout
-                android:id="@+id/ll_appointment_time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="预约入托时间"
-                    android:layout_marginTop="16dp" />
-
-                <DatePicker
-                    android:id="@+id/date_picker"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <TimePicker
-                    android:id="@+id/time_picker"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
         </LinearLayout>
-
     </ScrollView>
 
+    <!-- 预约入托列表布局（初始隐藏） -->
+    <LinearLayout
+        android:id="@+id/ll_appointment_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="搜索主人名或宠物名"
+            android:layout_marginBottom="8dp" />
+
+        <Button
+            android:id="@+id/btn_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="搜索" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_appointments"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp" />
+    </LinearLayout>
+
+    <!-- 底部按钮（现场入托时显示） -->
     <Button
-        android:id="@+id/btn_realtime_detect"
+        android:id="@+id/btn_take_photo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="实时检测"
