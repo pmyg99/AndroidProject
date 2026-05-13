@@ -23,9 +23,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PetListActivity"
-            />
-
+        <activity android:name=".PetListActivity" />
+        <activity android:name=".PetDetailActivity" />
+        <activity android:name=".BoardingRecordDetailActivity" />
+        <activity android:name=".DailyCareDetailActivity" />
+        <activity android:name=".CreateAppointmentActivity" />
+        <activity android:name=".MyAppointmentsActivity" />
     </application>
 
 </manifest>

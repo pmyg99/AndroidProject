@@ -1,64 +1,91 @@
 package com.example.petowner
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import java.net.HttpURLConnection
-import java.net.URL
 
 class PetListActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: PetAdapter
     private lateinit var tvOwnerInfo: TextView
+    private lateinit var btnAppointment: Button
+    private lateinit var btnMyAppointments: Button
+    private var pets: List<Pet>? = null
+    private var ownerId: Long = 0
+    private var ownerName: String = ""
+    private var ownerPhone: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pet_list)
 
-        val ownerName = intent.getStringExtra("owner_name") ?: ""
-        val ownerPhone = intent.getStringExtra("owner_phone") ?: ""
+        ownerName = intent.getStringExtra("owner_name") ?: ""
+        ownerPhone = intent.getStringExtra("owner_phone") ?: ""
+        ownerId = intent.getLongExtra("owner_id", 0)
 
         tvOwnerInfo = findViewById(R.id.tv_owner_info)
         tvOwnerInfo.text = "欢迎，$ownerName"
 
         recyclerView = findViewById(R.id.rv_pets)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        Log.d("PetListActivity", "Calling getPets with name=$ownerName, phone=$ownerPhone")
-        // 请求数据
-        ApiClient.getPets(ownerName, ownerPhone) { pets ->
+
+        btnAppointment = findViewById(R.id.btn_appointment)
+        btnMyAppointments = findViewById(R.id.btn_my_appointments)
+
+        loadPets()
+        setupButtons()
+    }
+
+    private fun loadPets() {
+        ApiClient.getPets(ownerName, ownerPhone) { petList ->
             runOnUiThread {
-                if (pets != null) {
-                    adapter = PetAdapter(pets)
-                    recyclerView.adapter = adapter
+                if (petList != null) {
+                    this.pets = petList
+                    ApiClient.getMyAppointments(ownerId) { appointments ->
+                        val pendingPetIds = appointments?.filter { it.status == "pending" }?.map { it.petId } ?: emptyList()
+                        val updatedPets = petList.map { pet ->
+                            pet.copy(hasPendingAppointment = pendingPetIds.contains(pet.id))
+                        }
+                        val adapter = PetAdapter(updatedPets) { pet ->
+                            val intent = Intent(this, PetDetailActivity::class.java)
+                            intent.putExtra("pet", pet)
+                            startActivity(intent)
+                        }
+                        recyclerView.adapter = adapter
+                    }
                 } else {
                     Toast.makeText(this, "获取数据失败", Toast.LENGTH_SHORT).show()
                 }
             }
         }
-        Thread {
-            try {
-                Log.d("Test", "开始测试请求")
-                val url = URL("http://127.0.0.1:8080/pets")
-                val conn = url.openConnection() as HttpURLConnection
-                conn.requestMethod = "POST"
-                conn.setRequestProperty("Content-Type", "application/json")
-                conn.doOutput = true
-                conn.connectTimeout = 10000
-                conn.readTimeout = 10000
-                val body = "{\"name\":\"张三\",\"phone\":\"13800001111\"}"
-                conn.outputStream.write(body.toByteArray())
-                conn.outputStream.flush()
-                val responseCode = conn.responseCode
-                val response = conn.inputStream.bufferedReader().readText()
-                Log.d("Test", "Response code: $responseCode, body: $response")
-            } catch (e: Exception) {
-                Log.e("Test", "Error", e)
-            }
-        }.start()
+    }
+
+    private fun setupButtons() {
+        btnAppointment.setOnClickListener {
+            val intent = Intent(this, CreateAppointmentActivity::class.java)
+            intent.putParcelableArrayListExtra("pets", ArrayList(pets ?: emptyList()))
+            intent.putExtra("owner_id", ownerId)
+            startActivity(intent)
+        }
+        btnMyAppointments.setOnClickListener {
+            val intent = Intent(this, MyAppointmentsActivity::class.java)
+            intent.putExtra("owner_id", ownerId)
+            startActivity(intent)
+        }
+    }
+
+    // 按返回键时直接退出应用（或回到登录页，可注释掉）
+    override fun onBackPressed() {
+        // 回到登录页（清空任务栈）
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
+        finish()
+        // 如果不想回到登录页而是退出，可以调用 finishAffinity()
     }
 }

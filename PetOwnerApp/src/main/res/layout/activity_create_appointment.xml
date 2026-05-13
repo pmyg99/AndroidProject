@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- 宠物选择方式 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="宠物选择"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <RadioGroup
+            android:id="@+id/rg_pet_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="12dp">
+
+            <RadioButton
+                android:id="@+id/rb_existing"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="已有宠物"
+                android:checked="true" />
+
+            <RadioButton
+                android:id="@+id/rb_new"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="新增宠物" />
+        </RadioGroup>
+
+        <!-- 已有宠物区域 -->
+        <LinearLayout
+            android:id="@+id/ll_existing_pet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Spinner
+                android:id="@+id/sp_pet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/tv_pet_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@android:color/darker_gray"
+                android:layout_marginBottom="12dp" />
+        </LinearLayout>
+
+        <!-- 新增宠物区域（初始隐藏） -->
+        <LinearLayout
+            android:id="@+id/ll_new_pet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/et_new_pet_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="宠物名称"
+                android:layout_marginBottom="8dp" />
+
+            <EditText
+                android:id="@+id/et_new_pet_species"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="品种（可选）"
+                android:layout_marginBottom="8dp" />
+
+            <EditText
+                android:id="@+id/et_new_pet_age"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="年龄（岁）"
+                android:inputType="number"
+                android:layout_marginBottom="8dp" />
+
+            <RadioGroup
+                android:id="@+id/rg_gender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="12dp">
+
+                <RadioButton
+                    android:id="@+id/rb_male"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="公" />
+
+                <RadioButton
+                    android:id="@+id/rb_female"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="母" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <!-- 主人备用联系方式 -->
+        <EditText
+            android:id="@+id/et_backup_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="备用联系电话（可选）"
+            android:inputType="phone"
+            android:layout_marginBottom="12dp" />
+
+        <!-- 预约时间 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="预约时间"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_start_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="选择开始日期"
+                android:layout_marginEnd="8dp" />
+
+            <Button
+                android:id="@+id/btn_start_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="选择开始时间" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <Button
+                android:id="@+id/btn_end_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="选择结束日期（可选）"
+                android:layout_marginEnd="8dp" />
+
+            <Button
+                android:id="@+id/btn_end_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="选择结束时间（可选）" />
+        </LinearLayout>
+
+        <!-- 备注 -->
+        <EditText
+            android:id="@+id/et_notes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="备注（可选）"
+            android:lines="3"
+            android:gravity="top"
+            android:layout_marginTop="12dp" />
+
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="提交预约"
+            android:layout_marginTop="16dp" />
+    </LinearLayout>
+</ScrollView>

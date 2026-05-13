@@ -1,52 +1,54 @@
 package com.example.petowner
 
+import android.graphics.Color
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import java.text.SimpleDateFormat
-import java.util.*
 
-class PetAdapter(private val pets: List<Pet>) :
-    RecyclerView.Adapter<PetAdapter.ViewHolder>() {
+class PetAdapter(
+    private val pets: List<Pet>,
+    private val onItemClick: (Pet) -> Unit
+) : RecyclerView.Adapter<PetAdapter.PetViewHolder>() {
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tvName: TextView = itemView.findViewById(R.id.tv_pet_name)
-        val tvInfo: TextView = itemView.findViewById(R.id.tv_pet_info)
-        val tvStatus: TextView = itemView.findViewById(R.id.tv_boarding_status)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PetViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_pet, parent, false)
+        return PetViewHolder(view)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_pet_summary, parent, false)
-        return ViewHolder(view)
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: PetViewHolder, position: Int) {
         val pet = pets[position]
-        holder.tvName.text = pet.name
-        holder.tvInfo.text = "${pet.species} | ${pet.age}岁 | ${pet.gender}"
+        holder.bind(pet)
+        holder.itemView.setOnClickListener { onItemClick(pet) }
 
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
-        val activeRecords = pet.activeRecords
-        val completedRecords = pet.completedRecords
-
-        val sb = StringBuilder()
-        if (activeRecords.isNotEmpty()) {
-            sb.append("正在寄养: ")
-            val record = activeRecords.first()
-            val startStr = dateFormat.format(Date(record.startTime))
-            val endStr = dateFormat.format(Date(record.endTime))
-            sb.append("$startStr 至 $endStr")
-        } else if (completedRecords.isNotEmpty()) {
-            sb.append("寄养完成: ")
-            val record = completedRecords.first()
-            val startStr = dateFormat.format(Date(record.startTime))
-            val endStr = dateFormat.format(Date(record.endTime))
-            sb.append("$startStr 至 $endStr")
+        // 高亮：正在寄养（绿色）> 有待确认预约（黄色）> 普通（白色/透明）
+        when {
+            pet.activeRecords.isNotEmpty() -> {
+                holder.itemView.setBackgroundColor(0xCC66BB66.toInt()) // 绿色
+            }
+            pet.hasPendingAppointment -> {
+                holder.itemView.setBackgroundColor(0xCCFFFF66.toInt()) // 黄色
+            }
+            else -> {
+                holder.itemView.setBackgroundColor(Color.TRANSPARENT)
+            }
         }
-        holder.tvStatus.text = sb.toString()
     }
 
-    override fun getItemCount(): Int = pets.size
+    override fun getItemCount() = pets.size
+
+    class PetViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
+        private val tvName: TextView = itemView.findViewById(R.id.tv_pet_name)
+        private val tvSpecies: TextView = itemView.findViewById(R.id.tv_pet_species)
+        private val tvAge: TextView = itemView.findViewById(R.id.tv_pet_age)
+        private val tvGender: TextView = itemView.findViewById(R.id.tv_pet_gender)
+
+        fun bind(pet: Pet) {
+            tvName.text = pet.name
+            tvSpecies.text = pet.species
+            tvAge.text = "${pet.age}岁"
+            tvGender.text = pet.gender
+        }
+    }
 }

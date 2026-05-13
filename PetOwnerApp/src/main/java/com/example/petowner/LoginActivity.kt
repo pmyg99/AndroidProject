@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import org.json.JSONObject
 
 class LoginActivity : AppCompatActivity() {
 
@@ -25,11 +26,21 @@ class LoginActivity : AppCompatActivity() {
             val name = etName.text.toString().trim()
             val phone = etPhone.text.toString().trim()
             if (name.isNotEmpty() && phone.isNotEmpty()) {
-                // 直接跳转，实际应用应验证主人信息
-                val intent = Intent(this, PetListActivity::class.java)
-                intent.putExtra("owner_name", name)
-                intent.putExtra("owner_phone", phone)
-                startActivity(intent)
+                // 调用登录接口，获取 ownerId
+                ApiClient.login(name, phone) { success, ownerId, message ->
+                    runOnUiThread {
+                        if (success) {
+                            val intent = Intent(this, PetListActivity::class.java)
+                            intent.putExtra("owner_name", name)
+                            intent.putExtra("owner_phone", phone)
+                            intent.putExtra("owner_id", ownerId)
+                            startActivity(intent)
+                            finish()
+                        } else {
+                            Toast.makeText(this, message ?: "登录失败", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
             } else {
                 Toast.makeText(this, "请输入姓名和联系方式", Toast.LENGTH_SHORT).show()
             }

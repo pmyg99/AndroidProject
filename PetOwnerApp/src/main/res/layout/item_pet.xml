@@ -2,53 +2,41 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:padding="12dp"
-    android:layout_marginBottom="8dp"
-    android:background="#F5F5F5">
+    android:gravity="center_vertical">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_pet_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_pet_species"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray" />
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/tv_pet_name"
+        android:id="@+id/tv_pet_age"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:layout_marginEnd="16dp"
+        android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/tv_pet_info"
+        android:id="@+id/tv_pet_gender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:layout_marginTop="4dp" />
-
-    <TextView
-        android:id="@+id/tv_active_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="正在寄养"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_marginTop="12dp" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_active"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp" />
-
-    <TextView
-        android:id="@+id/tv_completed_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="已完成寄养"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_marginTop="12dp" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_completed"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp" />
-
+        android:textSize="14sp" />
 </LinearLayout>
